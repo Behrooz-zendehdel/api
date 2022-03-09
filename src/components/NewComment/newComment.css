@@ -5,7 +5,20 @@
   flex-direction: column;
   background-color: #cbdcdd;
   width: 600px;
-  height: 200px;
+  height: 250px;
   color: #4338ca;
   border-radius: 5px;
+}
+.newComment input {
+  margin: 10px 0;
+}
+.add {
+  padding: 10px 12px;
+  background-color: #2603c4;
+  color: rgb(240, 238, 238);
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
