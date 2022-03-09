@@ -1,0 +1,11 @@
+.fullcomment {
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #cbdcdd;
+  width: 600px;
+  height: 200px;
+  color: #4338ca;
+  border-radius: 5px;
+  margin: 20px 0;
+}
