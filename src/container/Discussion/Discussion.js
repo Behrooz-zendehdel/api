@@ -7,6 +7,7 @@ import './discussion.css'
 const Discussion = () => {
     const [comments, setComments] = useState(null)
     const [selectedId, setSelectedId] = useState(null)
+    const [error, setError] = useState(false)
 
     useEffect(() => {
         const getComments = async () => {
@@ -17,7 +18,8 @@ const Discussion = () => {
                 setComments(data)
 
             } catch (error) {
-                console.log(error)
+                // console.log(error)
+                setError(true)
             }
         }
 
@@ -26,10 +28,10 @@ const Discussion = () => {
 
     const postCommentHandler = (comment) => {
         axios
-        .post('http://localhost:3001/comments', {
-             ...comment,
-              postId: 10,
-             })
+            .post('http://localhost:3001/comments', {
+                ...comment,
+                postId: 10,
+            })
             .then((res) => axios.get("http://localhost:3001/comments"))
             .then((res) => setComments(res.data))
             .catch()
@@ -40,22 +42,19 @@ const Discussion = () => {
     }
 
     const renderedComment = () => {
-
         let renderedValue = <p>loading ...</p>;
-
-        if (comments) {
-            renderedValue =
-                comments.map((c) => (
-                    <Comment key={c.id}
-                        name={c.name}
-                        email={c.email}
-                        onclick={() => selectCommentHandler(c.id)}
-                    />
-
-                ))
+        if (error) renderedValue = <p>fetching data ....</p>
+        if (comments && !error) {
+            renderedValue = comments.map((c) => (
+                <Comment key={c.id}
+                    name={c.name}
+                    email={c.email}
+                    onclick={() => selectCommentHandler(c.id)}
+                />
+            ))
         }
         return renderedValue;
-    };
+    }
 
     return (
         <main>
