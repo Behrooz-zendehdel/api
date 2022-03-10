@@ -1,4 +1,4 @@
-import axios from "axios";
+import http from '../../Services/httpServices'
 import { useEffect, useState } from "react";
 import Comment from "../../components/Comment/Comment";
 import FullComment from "../../components/FullComment/FullComment";
@@ -12,7 +12,7 @@ const Discussion = () => {
     useEffect(() => {
         const getComments = async () => {
             try {
-                const { data } = await axios.get(
+                const { data } = await http.get(
                     'http://localhost:3001/comments'
                 );
                 setComments(data)
@@ -68,7 +68,7 @@ const Discussion = () => {
                 {renderedComment()}
             </section>
             <section>
-                <FullComment commentId={selectedId} setComments={setComments} setSelectedId={setSelectedId}/>
+                <FullComment commentId={selectedId} setComments={setComments} setSelectedId={setSelectedId} />
             </section>
             <section>
                 <NewComment setComments={setComments} />

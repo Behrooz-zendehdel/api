@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import http from '../../Services/httpServices'
 import './newComment.css'
 const NewComment = ({ setComments }) => {
     const [comment, setComment] = useState({
@@ -13,13 +13,13 @@ const NewComment = ({ setComments }) => {
 
     const postCommentHandler = async () => {
         try {
-            await axios
+            await http
                 .post('http://localhost:3001/comments', {
                     ...comment,
                     postId: 10,
                 });
 
-            const { data } = await axios.get("http://localhost:3001/comments")
+            const { data } = await http.get("http://localhost:3001/comments")
             setComments(data)
         } catch (error) {
 
