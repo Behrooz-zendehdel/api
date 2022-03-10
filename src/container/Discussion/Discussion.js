@@ -26,16 +26,22 @@ const Discussion = () => {
         getComments();
     }, [])
 
-    const postCommentHandler = (comment) => {
-        axios
-            .post('http://localhost:3001/comments', {
-                ...comment,
-                postId: 10,
-            })
-            .then((res) => axios.get("http://localhost:3001/comments"))
-            .then((res) => setComments(res.data))
-            .catch()
-    }
+    // const postCommentHandler = (comment) => {
+    //     axios
+    //         .post('http://localhost:3001/comments', {
+    //             ...comment,
+    //             postId: 10,
+    //         })
+    //         .then((res) => axios.get("http://localhost:3001/comments"))
+    //         .then((res) => setComments(res.data))
+    //         .catch()
+    // }
+
+
+
+
+
+
 
     const selectCommentHandler = (id) => {
         setSelectedId(id)
@@ -62,10 +68,10 @@ const Discussion = () => {
                 {renderedComment()}
             </section>
             <section>
-                <FullComment commentId={selectedId} />
+                <FullComment commentId={selectedId} setComments={setComments} setSelectedId={setSelectedId}/>
             </section>
             <section>
-                <NewComment onAddPost={postCommentHandler} />
+                <NewComment setComments={setComments} />
             </section>
         </main>
     );
