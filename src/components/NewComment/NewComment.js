@@ -1,7 +1,6 @@
-import axios from 'axios';
 import { useState } from 'react';
 import './newComment.css'
-const NewComment = () => {
+const NewComment = ({ onAddPost }) => {
     const [comment, setComment] = useState({
         name: "",
         email: "",
@@ -11,11 +10,8 @@ const NewComment = () => {
         setComment({ ...comment, [e.target.name]: e.target.value })
     }
 
-    const postCommentHandler = () => {
-        axios.post('https://jsonplaceholder.typicode.com/comments', { ...comment, postId: 10 })
-            .then((res) => console(res))
-            .catch()
-    }
+
+
     return (
         <div className="newComment">
             <h2>add new comment</h2>
@@ -28,10 +24,10 @@ const NewComment = () => {
                 <input type="email" onChange={changeHandler} name="email" />
             </div>
             <div>
-                <label>name </label>
+                <label>content </label>
                 <input type="textarea" onChange={changeHandler} name="content" />
             </div>
-            <button onClick={postCommentHandler} className='add'>add new comment</button>
+            <button onClick={() => onAddPost(comment)} className='add'>add new comment</button>
         </div>
 
     );

@@ -9,11 +9,17 @@ const FullComment = ({ commentId }) => {
     useEffect(() => {
         if (commentId) {
             axios
-                .get(`https://jsonplaceholder.typicode.com/comments/${commentId}`)
+                .get(`http://localhost:3001/comments/${commentId}`)
                 .then((res) => setComment(res.data))
                 .catch();
         }
     }, [commentId]);
+    const deleteHandler = () => {
+        axios
+            .delete(`http://localhost:3001/comments/${commentId}`)
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err))
+    }
 
     let commentDetail = <p>please select a comment ! </p>;
 
@@ -27,7 +33,7 @@ const FullComment = ({ commentId }) => {
                 <p>{comment.name}</p>
                 <p>{comment.email}</p>
                 <p>{comment.body}</p>
-                <button className='delete'>Delete</button>
+                <button onClick={deleteHandler} className='delete'>Delete</button>
             </div>
     }
     return commentDetail;
