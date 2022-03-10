@@ -1,6 +1,9 @@
 import http from '../../Services/httpServices'
 import { useEffect, useState } from 'react';
 import './FullComment.css'
+import { deleteComment } from '../../Services/deleteCommentSrevice';
+import { getAllComments } from '../../Services/getAllCommentsServices';
+import { getOneComment } from '../../Services/getOneCommentServices';
 const FullComment = ({ commentId, setComments, setSelectedId }) => {
     const [comment, setComment] = useState(null)
 
@@ -8,8 +11,7 @@ const FullComment = ({ commentId, setComments, setSelectedId }) => {
 
     useEffect(() => {
         if (commentId) {
-            http
-                .get(`/comments/${commentId}`)
+            getOneComment(commentId)
                 .then((res) => setComment(res.data))
                 .catch();
         }
@@ -24,8 +26,8 @@ const FullComment = ({ commentId, setComments, setSelectedId }) => {
     // }
     const deleteHandler = async () => {
         try {
-            await http.delete(`/comments/${commentId}`)
-            const { data } = await http.get("/comments");
+            await deleteComment(commentId)
+            const { data } = await getAllComments();
             setComments(data)
             setSelectedId(null)
             setComment(null)
